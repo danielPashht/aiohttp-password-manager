@@ -3,7 +3,7 @@ import os
 from aiohttp import web
 from dotenv import load_dotenv
 from app.db import DatabaseConnector, db_handler_middleware
-from app.middlewares import jwt_auth_middleware
+from app.middlewares import jwt_auth_middleware, rate_limiter
 from app.routes import setup_routes
 
 
@@ -28,7 +28,13 @@ async def close_db(app):
 
 
 async def main():
-    app = web.Application(middlewares=[jwt_auth_middleware, db_handler_middleware])
+    app = web.Application(
+        middlewares=[
+            jwt_auth_middleware,
+            db_handler_middleware,
+            rate_limiter
+        ]
+    )
 
     app.on_startup.append(init_db)
     app.on_shutdown.append(close_db)

@@ -1,6 +1,22 @@
+import logging
+import time
 from aiohttp import web
 from .utils import decode_jwt
-import logging
+
+
+rate_limit = {}
+
+
+@web.middleware
+async def rate_limiter(request, handler):
+    user_ip = request.remote
+    current_time = time.time()
+    if user_ip in rate_limit:
+        last_request_time = rate_limit[user_ip]
+        if current_time - last_request_time < 1:  # 1 request per second
+            return web.Response(status=429, text="Too Many Requests")
+    rate_limit[user_ip] = current_time
+    return await handler(request)
 
 
 @web.middleware
