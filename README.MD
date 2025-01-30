@@ -14,7 +14,7 @@ A simple password manager application built with Python and aiohttp. This applic
 
 - `POST /register` - Register a new user
 - `POST /login` - Log in an existing user
-- `POST /password/generate` - Generate a new password
+- `POST /password/generate` - Generate a new password. It accepts optional 'length' and 'label' parameters
 - `GET /passwords` - Retrieve all stored passwords
 - `DELETE /password/{password_id}` - Delete a specific password
 
