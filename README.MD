@@ -32,3 +32,9 @@ A simple password manager application built with Python and aiohttp. This applic
 - bcrypt
 - jwt
 - python-dotenv
+
+## Future Features
+
+- One-time link Password Sharing
+- Password search
+- Expiry Notifications with Celery
