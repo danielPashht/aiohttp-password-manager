@@ -38,5 +38,5 @@ async def jwt_auth_middleware(request, handler):
     except Exception as e:
         logging.error(f"Token decoding failed: {e}")
         raise web.HTTPUnauthorized(text=str(e))
-    print(user_payload)
+
     return await handler(request)
